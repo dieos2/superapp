@@ -34,13 +34,44 @@
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
+			<div class="inputwrapper animate1 bounceIn">
+			<select style='width:153px !important' data-id='selectTipo'></select>
+			 </div>
         </div>
-        <script type="text/javascript" src="phonegap.js"></script>
+        
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.mobile.custom.js"></script>
 		<script type="text/javascript">
             app.initialize();
-        </script>
+       
+    jQuery(document).ready(function(){
+	jQuery.ajax({
+        url: "http://www.superclipping.com.br/Noticias/GetTiposMidias",
+        type: "Get",
+		async:false,
+        success: function (result) {
+
+            for (var i = 0; result.length > i; i++) {
+			
+              jQuery("[data-id=selectTipo]").append(
+                            jQuery('<option>', { value: result[i].id }).text(result[i].tipo_midia)
+                          )
+
+                   }
+			   
+            
+}
+});
+        jQuery('#login').submit(function(){
+            var u = jQuery('#username').val();
+            var p = jQuery('#password').val();
+            if(u == '' && p == '') {
+                jQuery('.login-alert').fadeIn();
+                return false;
+            }
+        });
+    });
+</script>
     </body>
 </html>

@@ -45,8 +45,8 @@
 		<script type="text/javascript">
             app.initialize();
        
-    jQuery(document).ready(function(){
-	jQuery.ajax({
+    $(document).ready(function(){
+	$(.ajax({
         url: "http://www.superclipping.com.br/Noticias/GetTiposMidias",
         type: "Get",
 		async:false,
@@ -54,24 +54,16 @@
 
             for (var i = 0; result.length > i; i++) {
 			
-              jQuery("[data-id=selectTipo]").append(
-                            jQuery('<option>', { value: result[i].id }).text(result[i].tipo_midia)
+              $(("[data-id=selectTipo]").append(
+                            $(('<option>', { value: result[i].id }).text(result[i].tipo_midia)
                           )
 
                    }
 			   
             
 }
-});
-        jQuery('#login').submit(function(){
-            var u = jQuery('#username').val();
-            var p = jQuery('#password').val();
-            if(u == '' && p == '') {
-                jQuery('.login-alert').fadeIn();
-                return false;
-            }
-        });
-    });
+});}
+       
 </script>
     </body>
 </html>

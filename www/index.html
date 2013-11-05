@@ -5,51 +5,44 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" />
     <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.js"></script>
+	<script src="js/NoticiasSuperClipping.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
 </head>
  
 <body>
  
-    <script>
-        $(function() {
- 
-            $("#callAjax").click(function() {
-                var theName = $.trim($("#theName").val());
- debugger;
-                if(theName.length > 0)
-                {
-                    $.ajax({
-                      type: "GET",
-                      url: "http://www.superclipping.com.br/Noticias/GetTiposMidias",
-                      cache: false,
-                      dataType: "text",
-                      success: onSuccess
-                    });
-                }
-            });
- 
-            $("#resultLog").ajaxError(function(event, request, settings, exception) {
-              $("#resultLog").html("Error Calling: " + settings.url + "<br />HTTP Code: " + request.status);
-            });
- 
-            function onSuccess(data)
-            {
-                $("#resultLog").html("Result: " + data);
-            }
- 
-        });
-    </script>
+   <script>
+var secretaria ="SECOM";
+//o detalhes é só colocar seguindo este exemplo nome da pagina seguido de sua extensão se houver, e apontando para o id.
+// no aspx ficaria detalhe.aspx?id= 
+//no .net mvc detalhes/
+var linkdetalhes ="exibe_clipping.asp?id=";
+var id_tipoMidia = 3;
+var id = 6029;
+var titulo = "Ola.";
+    jQuery(function () {
+       CarregaNoticias(secretaria, linkdetalhes, id_tipoMidia);
+    });
+</script>
  
     <div data-role="page" id="indexPage">
         <div data-role="header">
             <h1>JQuery Mobile</h1>
         </div>
         <div data-role="content">
-            <div data-role="fieldcontain">
-                <label for="theName">Please enter your name:</label>
-                <input type="text" id="theName" name="theName" value="" />
-            </div>
-            <input id="callAjax" type="button" value="Call Ajax" />
-            <div id="resultLog"></div>
+             <table id="galeria" class="table table-bordered">
+
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="5" class="dataTables_empty">Carregando...</td>
+                </tr>
+
+
+
+            </tbody>
+        </table>
         </div>
  
         <div data-role="footer">

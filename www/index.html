@@ -1,58 +1,62 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-		  <link rel="stylesheet" type="text/css" href="css/jquery.mobile.custom.structure.css" />
-		    <link rel="stylesheet" type="text/css" href="css/jquery.mobile.custom.theme.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-			<div class="inputwrapper animate1 bounceIn">
-			<select style='width:153px !important' data-id='selectTipo'></select>
-			 </div>
+    <title>JQuery Mobile AJAX</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.js"></script>
+</head>
+ 
+<body>
+ 
+    <script>
+        $(function() {
+ 
+            $("#callAjax").click(function() {
+                var theName = $.trim($("#theName").val());
+ 
+                if(theName.length > 0)
+                {
+                    $.ajax({
+                      type: "POST",
+                      url: "http://10.0.2.2/mobileajax/callajax.php",
+                      data: ({name: theName}),
+                      cache: false,
+                      dataType: "text",
+                      success: onSuccess
+                    });
+                }
+            });
+ 
+            $("#resultLog").ajaxError(function(event, request, settings, exception) {
+              $("#resultLog").html("Error Calling: " + settings.url + "<br />HTTP Code: " + request.status);
+            });
+ 
+            function onSuccess(data)
+            {
+                $("#resultLog").html("Result: " + data);
+            }
+ 
+        });
+    </script>
+ 
+    <div data-role="page" id="indexPage">
+        <div data-role="header">
+            <h1>JQuery Mobile</h1>
         </div>
-        
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="js/jquery.mobile.custom.js"></script>
-		<script type="text/javascript">
-            app.initialize();
-       
-    $(document).ready(function(){
-	$("[data-id=selectTipo]").hide();
-	$.ajax({
-    type       : "GET",
-    url        : "http://www.superclipping.com.br/Noticias/GetTiposMidias",
-    crossDomain: true,
-    beforeSend : function() {$("[data-id=selectTipo]").show()},
-    complete   : function() {for (var i = 0; result.length > i; i++) {
-			
-              $("[data-id=selectTipo]").append(
-                            $(('<option>', { value: result[i].id }).text(result[i].tipo_midia))
-                          );
-
-                   }},
-    
-    dataType   : 'json',
-    success    : function(response) {
-        //console.error(JSON.stringify(response));
-        alert('Works!');
-    },
-    error      : function() {
-        //console.error("error");
-        alert('Now working!');                  
-    }
-});     
-	}
-       
-</script>
-    </body>
+        <div data-role="content">
+            <div data-role="fieldcontain">
+                <label for="theName">Please enter your name:</label>
+                <input type="text" id="theName" name="theName" value="" />
+            </div>
+            <input id="callAjax" type="button" value="Call Ajax" />
+            <div id="resultLog"></div>
+        </div>
+ 
+        <div data-role="footer">
+            <h1>AJAX Demo</h1>
+        </div> 
+    </div>
+ 
+</body>
 </html>

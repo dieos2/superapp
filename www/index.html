@@ -14,12 +14,12 @@
  
             $("#callAjax").click(function() {
                 var theName = $.trim($("#theName").val());
- 
+ debugger;
                 if(theName.length > 0)
                 {
                     $.ajax({
-                      type: "POST",
-                      url: "http://10.0.2.2/mobileajax/callajax.php",
+                      type: "GET",
+                      url: "http://www.superclipping.com.br/Noticias/GetTiposMidias",
                       data: ({name: theName}),
                       cache: false,
                       dataType: "text",
